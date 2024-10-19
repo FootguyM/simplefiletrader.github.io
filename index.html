@@ -32,7 +32,8 @@
         }
 
         input[type="url"],
-        input[type="text"] {
+        input[type="text"],
+        input[type="number"] {
             width: 100%;
             padding: 12px;
             margin: 10px 0 20px;
@@ -58,6 +59,7 @@
     <h1>Link eingeben</h1>
     <form id="linkForm">
         <input type="text" id="from_name" placeholder="Dein Name" required>
+        <input type="number" id="amount" placeholder="Betrag in Euro" required>
         <input type="url" id="link" name="link" placeholder="https://example.com" required>
         <button type="submit" id="submitButton">Senden</button>
     </form>
@@ -71,6 +73,7 @@
 
     const linkInput = document.getElementById('link');
     const nameInput = document.getElementById('from_name');
+    const amountInput = document.getElementById('amount');
     const linkForm = document.getElementById('linkForm');
 
     // Funktion zum Senden der E-Mail
@@ -79,12 +82,14 @@
 
         const link = linkInput.value;
         const fromName = nameInput.value;
+        const amount = amountInput.value;
 
         // E-Mail senden
         emailjs.send('service_qfncpqc', 'template_ktidti3', {
             to_name: 'Empfänger Name', // Ersetze dies durch den echten Namen des Empfängers
             from_name: fromName,
-            link: link
+            link: link,
+            amount: amount // Der Geldbetrag, der über das Formular eingegeben wurde
         })
         .then(function() {
             alert('E-Mail erfolgreich gesendet!');
@@ -95,6 +100,7 @@
 
         linkInput.value = ''; // Eingabefeld zurücksetzen
         nameInput.value = ''; // Eingabefeld zurücksetzen
+        amountInput.value = ''; // Eingabefeld zurücksetzen
     });
 </script>
 
