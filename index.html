@@ -49,17 +49,63 @@
             font-size: 16px;
             cursor: pointer;
         }
+
+        #links {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        #links h2 {
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>Link eingeben</h1>
-    <form action="/submit-link" method="POST">
-        <input type="url" id="link" name="link" placeholder="https://example.com" required>
-        <button type="submit">Senden</button>
-    </form>
+    <input type="url" id="link" placeholder="https://example.com" required>
+    <button id="submitButton">Senden</button>
+
+    <div id="links">
+        <h2>Gespeicherte Links:</h2>
+        <ul id="linkList"></ul>
+    </div>
 </div>
+
+<script>
+    const linkInput = document.getElementById('link');
+    const submitButton = document.getElementById('submitButton');
+    const linkList = document.getElementById('linkList');
+
+    // Funktion zum Laden der gespeicherten Links
+    function loadLinks() {
+        const savedLinks = JSON.parse(localStorage.getItem('links')) || [];
+        savedLinks.forEach(link => {
+            const li = document.createElement('li');
+            li.textContent = link;
+            linkList.appendChild(li);
+        });
+    }
+
+    // Funktion zum Hinzufügen eines Links
+    submitButton.addEventListener('click', () => {
+        const link = linkInput.value;
+        if (link) {
+            const savedLinks = JSON.parse(localStorage.getItem('links')) || [];
+            savedLinks.push(link);
+            localStorage.setItem('links', JSON.stringify(savedLinks));
+            
+            const li = document.createElement('li');
+            li.textContent = link;
+            linkList.appendChild(li);
+            linkInput.value = ''; // Eingabefeld zurücksetzen
+        }
+    });
+
+    // Beim Laden der Seite die Links anzeigen
+    window.onload = loadLinks;
+</script>
 
 </body>
 </html>
