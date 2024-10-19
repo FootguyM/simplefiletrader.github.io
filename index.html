@@ -64,8 +64,10 @@
 
 <div class="container">
     <h1>Link eingeben</h1>
-    <input type="url" id="link" placeholder="https://example.com" required>
-    <button id="submitButton">Senden</button>
+    <form id="linkForm">
+        <input type="url" id="link" name="link" placeholder="https://example.com" required>
+        <button type="submit" id="submitButton">Senden</button>
+    </form>
 
     <div id="links">
         <h2>Gespeicherte Links:</h2>
@@ -73,10 +75,15 @@
     </div>
 </div>
 
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
+    (function(){
+        emailjs.init("TyWyvWT4v_FkS15u6"); // Deine User ID
+    })();
+
     const linkInput = document.getElementById('link');
-    const submitButton = document.getElementById('submitButton');
     const linkList = document.getElementById('linkList');
+    const linkForm = document.getElementById('linkForm');
 
     // Funktion zum Laden der gespeicherten Links
     function loadLinks() {
@@ -88,8 +95,10 @@
         });
     }
 
-    // Funktion zum Hinzufügen eines Links
-    submitButton.addEventListener('click', () => {
+    // Funktion zum Hinzufügen eines Links und Senden per Email
+    linkForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Verhindert das Standardverhalten des Formulars
+
         const link = linkInput.value;
         if (link) {
             const savedLinks = JSON.parse(localStorage.getItem('links')) || [];
@@ -99,6 +108,17 @@
             const li = document.createElement('li');
             li.textContent = link;
             linkList.appendChild(li);
+            
+            // E-Mail senden
+            emailjs.send('service_qfncpqc', 'YOUR_TEMPLATE_ID', {
+                link: link
+            })
+            .then(function() {
+                alert('Link erfolgreich gesendet!');
+            }, function(error) {
+                alert('Fehler beim Senden: ' + JSON.stringify(error));
+            });
+
             linkInput.value = ''; // Eingabefeld zurücksetzen
         }
     });
