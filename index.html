@@ -57,7 +57,6 @@
 <div class="container">
     <h1>Link eingeben</h1>
     <form id="linkForm">
-        <input type="text" id="from_name" placeholder="Dein Name" required>
         <input type="url" id="link" name="link" placeholder="https://example.com" required>
         <button type="submit" id="submitButton">Senden</button>
     </form>
@@ -83,7 +82,7 @@
         // E-Mail senden
         emailjs.send('service_qfncpqc', 'template_ktidti3', {
             to_name: 'Empfänger Name', // Ersetze dies durch den echten Namen des Empfängers
-            from_name: fromName,
+            from_name: X,
             link: link
         })
         .then(function() {
