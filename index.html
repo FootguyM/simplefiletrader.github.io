@@ -31,15 +31,7 @@
             margin-bottom: 20px;
         }
 
-        input[type="url"] {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
+        input[type="url"],
         input[type="text"] {
             width: 100%;
             padding: 12px;
@@ -90,13 +82,14 @@
 
         // E-Mail senden
         emailjs.send('service_qfncpqc', 'template_ktidti3', {
-            to_name: 'Dein Name',       // Ersetze durch den Empfänger-Namen
-            from_name: fromName,        // Der Name des Absenders
-            link: link                  // Der Link, der über das Formular eingegeben wurde
+            to_name: 'Empfänger Name', // Ersetze dies durch den echten Namen des Empfängers
+            from_name: fromName,
+            link: link
         })
         .then(function() {
             alert('E-Mail erfolgreich gesendet!');
         }, function(error) {
+            console.log('Error sending email:', error); // Fehler im Konsolenprotokoll anzeigen
             alert('Fehler beim Senden: ' + JSON.stringify(error));
         });
 
