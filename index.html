@@ -61,31 +61,30 @@
     const linkForm = document.getElementById('linkForm');
 
     // Funktion zum Senden der E-Mail
-    linkForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+linkForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-        const link = linkInput.value;
-        const fromName = nameInput.value;
-        const amount = amountInput.value;
+    const link = linkInput.value;
+    const fromName = nameInput.value;
+    const amount = amountInput.value;
 
-        // E-Mail senden
-        emailjs.send('service_qfncpqc', 'template_ktidti3', {
-            to_name: 'Empfänger Name',
-            from_name: fromName,
-            link: link,
-            amount: amount
-        })
-        .then(function() {
-            alert('E-Mail erfolgreich gesendet!');
-        }, function(error) {
-            console.log('Error sending email:', error);
-            alert('Fehler beim Senden: ' + JSON.stringify(error));
-        });
-
-        linkInput.value = '';
-        nameInput.value = '';
-        amountInput.value = '';
+    // E-Mail senden
+    emailjs.send('service_qfncpqc', 'template_ktidti3', {
+        to_name: 'Empfänger Name',
+        from_name: fromName,
+        link: link,
+        amount: amount
+    })
+    .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+    }, (error) => {
+        console.log('FAILED...', error);
     });
+
+    linkInput.value = '';
+    nameInput.value = '';
+    amountInput.value = '';
+});
 </script>
 
 </body>
