@@ -31,15 +31,33 @@
             margin-bottom: 20px;
         }
 
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            margin-right: 10px;
+        }
+
         input[type="url"],
         input[type="text"],
         input[type="number"] {
-            width: 100%;
             padding: 12px;
             margin: 10px 0 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+        }
+
+        input[type="number"] {
+            width: 80px;
+        }
+
+        input[type="url"] {
+            width: 100%;
         }
 
         button {
@@ -50,6 +68,7 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -58,8 +77,10 @@
 <div class="container">
     <h1>Link eingeben</h1>
     <form id="linkForm">
-        <input type="text" id="from_name" placeholder="Dein Name" required>
-        <input type="number" id="amount" placeholder="Betrag in Euro" required>
+        <div class="input-group">
+            <input type="text" id="from_name" placeholder="Dein Name" required>
+            <input type="number" id="amount" placeholder="€" min="0" required>
+        </div>
         <input type="url" id="link" name="link" placeholder="https://example.com" required>
         <button type="submit" id="submitButton">Senden</button>
     </form>
