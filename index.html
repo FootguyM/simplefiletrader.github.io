@@ -4,39 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Easy File Trader</title>
-	<link rel="stylesheet" href="style.css">
+    <!-- Bootstrap CSS einbinden -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-    <h1>Trading Files Made Easy</h1>
-    <form id="linkForm">
-        <div class="input-group">
-            <input type="text" id="from_name" placeholder="Your Paypal-Link / Username" required>
-            <input type="number" id="amount" placeholder="€" min="0" required>
+<div class="container py-5">
+    <h1 class="text-center mb-4">Trading Files Made Easy</h1>
+    <form id="linkForm" class="mb-4">
+        <div class="form-group">
+            <input type="text" id="from_name" class="form-control" placeholder="Your Paypal-Link / Username" required>
         </div>
-        <input type="url" id="link" name="link" placeholder="Link to your file" required>
-        <button type="submit" id="submitButton">Confirm</button>
+        <div class="form-group">
+            <input type="number" id="amount" class="form-control" placeholder="€" min="0" required>
+        </div>
+        <div class="form-group">
+            <input type="url" id="link" name="link" class="form-control" placeholder="Link to your file" required>
+        </div>
+        <button type="submit" id="submitButton" class="btn btn-primary btn-block">Confirm</button>
     </form>
 </div>
 
+<div class="area">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
 
-<div class="area" >
-            <ul class="circles">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-            </ul>
-    </div >
+<!-- Bootstrap JS und Abhängigkeiten -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
+<!-- EmailJS -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
     (function(){
@@ -50,7 +60,7 @@
 
     // Funktion zum Senden der E-Mail
     linkForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Verhindert das Standardverhalten des Formulars
+        event.preventDefault();
 
         const link = linkInput.value;
         const fromName = nameInput.value;
@@ -58,21 +68,21 @@
 
         // E-Mail senden
         emailjs.send('service_qfncpqc', 'template_ktidti3', {
-            to_name: 'Empfänger Name', // Ersetze dies durch den echten Namen des Empfängers
+            to_name: 'Empfänger Name',
             from_name: fromName,
             link: link,
-            amount: amount // Der Geldbetrag, der über das Formular eingegeben wurde
+            amount: amount
         })
         .then(function() {
             alert('E-Mail erfolgreich gesendet!');
         }, function(error) {
-            console.log('Error sending email:', error); // Fehler im Konsolenprotokoll anzeigen
+            console.log('Error sending email:', error);
             alert('Fehler beim Senden: ' + JSON.stringify(error));
         });
 
-        linkInput.value = ''; // Eingabefeld zurücksetzen
-        nameInput.value = ''; // Eingabefeld zurücksetzen
-        amountInput.value = ''; // Eingabefeld zurücksetzen
+        linkInput.value = '';
+        nameInput.value = '';
+        amountInput.value = '';
     });
 </script>
 
